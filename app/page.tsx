@@ -50,11 +50,11 @@ const IntroSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
     <div className="text-center">
       <div className="inline-flex items-center justify-center rounded-full glass-panel border border-primary/30 mb-6 p-2 px-4 bg-primary/10">
         <TreePine className="w-6 h-6 text-primary mr-2" />
-        <span className="text-primary-foreground font-mono tracking-widest uppercase text-sm">BioMassters Project</span>
+        <span className="text-primary-foreground font-mono tracking-widest uppercase text-sm">Group 1</span>
       </div>
       <h1 className="text-7xl md:text-9xl font-bold tracking-tighter mb-6 text-foreground">
-        Weighing <br />
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500">Forests from Space</span>
+        EcoCredit <br />
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500">Carbon Credit Trading Platform</span>
       </h1>
       <p className="text-xl md:text-2xl text-muted mx-auto leading-relaxed max-w-3xl">
         A High-Precision Deep Learning approach to estimating biomass using multi-modal satellite imagery.

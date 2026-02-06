@@ -171,6 +171,11 @@ const ExistingMethodsPhysicalSlide = forwardRef<SlideHandle, SlideProps>((props,
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.3 }}
                                 />
+                                {step === 0 && (
+                                    <span className="absolute top-2 left-2 text-white text-xl px-2 py-0.5 rounded-full backdrop-blur-sm z-10">
+                                        No tree - No carbon credits
+                                    </span>
+                                )}
                             </AnimatePresence>
                             <div className="absolute bottom-2 right-2 bg-black/50 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm z-10">
                                 {step === 1 ? "View 2" : "View 1"}
