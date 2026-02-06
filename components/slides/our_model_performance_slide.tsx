@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SlideHandle, SlideProps } from "../../types";
 
@@ -10,6 +10,23 @@ const OurModelPerformanceSlide = forwardRef<SlideHandle, SlideProps>((props, ref
         prev: () => false
     }));
 
+    const [trainingData, setTrainingData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Load the larger model training data
+        fetch('/assets/training_larger_simulation.json')
+            .then(res => res.json())
+            .then(data => {
+                setTrainingData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load training data", err);
+                setLoading(false);
+            });
+    }, []);
+
     const comparisonData = [
         { name: "EffNetV2-L (Winner - Ours)", size: 150, score: 27.63, color: '#2E86AB', shape: 'circle' },
         { name: "Our UnetVFLOW", size: 33, score: 27.1, color: '#10B981', opacity: 1.0 },
@@ -20,7 +37,7 @@ const OurModelPerformanceSlide = forwardRef<SlideHandle, SlideProps>((props, ref
     return (
         <div className="flex h-full p-8 gap-8 overflow-hidden">
             {/* Left: Performance Highlights */}
-            <div className="w-[450px] flex flex-col justify-center gap-8 z-10">
+            <div className="w-[650px] flex flex-col justify-center gap-8 z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -39,23 +56,27 @@ const OurModelPerformanceSlide = forwardRef<SlideHandle, SlideProps>((props, ref
                         className="grid grid-cols-2 gap-4"
                     >
                         {/* Model Size */}
-                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                                <Gauge className="w-5 h-5 text-blue-500" />
+                        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3 flex flex-col justify-between h-20">
+                            <div className="flex items-center gap-2">
+                                <Gauge className="w-4 h-4 text-blue-500" />
                                 <span className="text-xs font-mono text-blue-700 dark:text-blue-400 uppercase tracking-wider">Size</span>
                             </div>
-                            <div className="text-3xl font-bold text-foreground">33M</div>
-                            <div className="text-xs text-muted-foreground mt-1">Parameters</div>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-2xl font-bold text-foreground">33M</span>
+                                <span className="text-2xl text-muted-foreground">Parameters</span>
+                            </div>
                         </div>
 
                         {/* RMSE */}
-                        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
-                            <div className="flex items-center gap-2 mb-2">
-                                <TrendingDown className="w-5 h-5 text-emerald-500" />
+                        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 flex flex-col justify-between h-20">
+                            <div className="flex items-center gap-2">
+                                <TrendingDown className="w-4 h-4 text-emerald-500" />
                                 <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">RMSE</span>
                             </div>
-                            <div className="text-3xl font-bold text-foreground">27.1</div>
-                            <div className="text-xs text-muted-foreground mt-1">Mg ha⁻¹</div>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-2xl font-bold text-foreground">27.1</span>
+                                <span className="text-2xl text-muted-foreground">Mg/ha</span>
+                            </div>
                         </div>
                     </motion.div>
 
@@ -89,6 +110,23 @@ const OurModelPerformanceSlide = forwardRef<SlideHandle, SlideProps>((props, ref
                                 <span><strong className="text-emerald-600 dark:text-emerald-400">Lower training cost</strong> and energy consumption</span>
                             </li>
                         </ul>
+                    </motion.div>
+
+                    {/* Training Progress Graph */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.6 }}
+                        className="bg-surface border border-border/50 rounded-2xl p-5 shadow-sm"
+                    >
+                        <h4 className="font-bold text-base mb-3 text-foreground">Training Progress</h4>
+                        <div className="h-[280px] w-full">
+                            {loading ? (
+                                <div className="h-full flex items-center justify-center text-muted-foreground text-sm">Loading...</div>
+                            ) : (
+                                <TrainingCurveChart data={trainingData?.['large_model'] || []} />
+                            )}
+                        </div>
                     </motion.div>
                 </div>
             </div>
@@ -189,8 +227,8 @@ function ComparisonScatterChart({ data }: { data: any[] }) {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.3 }}
                 >
-                    <circle cx={getX(d.size)} cy={getY(d.score)} r={d.size / 4} fill={d.color} opacity={d.opacity * 0.6} />
-                    <circle cx={getX(d.size)} cy={getY(d.score)} r={6} fill={d.color} opacity={d.opacity} />
+                    <circle cx={getX(d.size)} cy={getY(d.score)} r={d.size / 4} fill={d.color} opacity={(d.opacity ?? 1) * 0.6} />
+                    <circle cx={getX(d.size)} cy={getY(d.score)} r={6} fill={d.color} opacity={d.opacity ?? 1} />
                     <circle cx={getX(d.size)} cy={getY(d.score)} r={3} fill="white" />
                     {/* Label */}
                     <text
@@ -205,6 +243,96 @@ function ComparisonScatterChart({ data }: { data: any[] }) {
             ))}
         </svg>
     )
+}
+
+// Training Curve Chart Component
+function TrainingCurveChart({ data }: { data: any[] }) {
+    if (!data || data.length === 0) return null;
+
+    const width = 400;
+    const height = 180;
+    const padding = { top: 20, right: 30, bottom: 30, left: 40 };
+    const graphWidth = width - padding.left - padding.right;
+    const graphHeight = height - padding.top - padding.bottom;
+
+    const epochs = data.map(d => d.epoch);
+    const maxEpoch = Math.max(...epochs);
+    const minEpoch = Math.min(...epochs);
+
+    const rmseValues = data.map(d => d.val_rmse);
+    const minY = Math.min(...rmseValues) * 0.95;
+    const maxY = Math.max(...rmseValues) * 1.05;
+
+    const getX = (epoch: number) => padding.left + ((epoch - minEpoch) / (maxEpoch - minEpoch)) * graphWidth;
+    const getY = (val: number) => padding.top + (graphHeight - ((val - minY) / (maxY - minY)) * graphHeight);
+
+    // Sample every N epochs for cleaner visualization
+    const sampleInterval = Math.max(1, Math.floor(data.length / 100));
+    const sampledData = data.filter((_, i) => i % sampleInterval === 0 || i === data.length - 1);
+
+    const pathData = sampledData.reduce((path, d, i) => {
+        const x = getX(d.epoch);
+        const y = getY(d.val_rmse);
+        return path + (i === 0 ? `M ${x},${y}` : ` L ${x},${y}`);
+    }, "");
+
+    return (
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible font-sans select-none">
+            {/* Axes */}
+            <line x1={padding.left} y1={height - padding.bottom} x2={width - padding.right} y2={height - padding.bottom} stroke="currentColor" className="text-foreground" strokeWidth="1" />
+            <line x1={padding.left} y1={padding.top} x2={padding.left} y2={height - padding.bottom} stroke="currentColor" className="text-foreground" strokeWidth="1" />
+
+            {/* Y Ticks */}
+            {[0, 0.5, 1].map(t => {
+                const val = minY + t * (maxY - minY);
+                const y = getY(val);
+                return (
+                    <g key={t}>
+                        <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} stroke="currentColor" strokeOpacity={0.1} />
+                        <text x={padding.left - 8} y={y + 3} textAnchor="end" className="text-[9px] fill-muted-foreground">{val.toFixed(1)}</text>
+                    </g>
+                );
+            })}
+
+            {/* X Ticks */}
+            {[0, 0.5, 1].map(t => {
+                const epoch = Math.round(minEpoch + t * (maxEpoch - minEpoch));
+                const x = getX(epoch);
+                return (
+                    <g key={t}>
+                        <line x1={x} y1={height - padding.bottom} x2={x} y2={height - padding.bottom + 4} stroke="currentColor" className="text-muted-foreground" />
+                        <text x={x} y={height - padding.bottom + 14} textAnchor="middle" className="text-[9px] fill-muted-foreground">{epoch}</text>
+                    </g>
+                );
+            })}
+
+            {/* Axis Labels */}
+            <text x={width / 2} y={height - 5} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">Epoch</text>
+            <text x={12} y={height / 2} transform={`rotate(-90, 12, ${height / 2})`} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">RMSE</text>
+
+            {/* Path */}
+            <motion.path
+                d={pathData}
+                fill="none"
+                stroke="#10B981"
+                strokeWidth="2"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+            />
+
+            {/* Final point highlight */}
+            <motion.circle
+                cx={getX(data[data.length - 1].epoch)}
+                cy={getY(data[data.length - 1].val_rmse)}
+                r="4"
+                fill="#10B981"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 2, duration: 0.3 }}
+            />
+        </svg>
+    );
 }
 
 OurModelPerformanceSlide.displayName = "OurModelPerformanceSlide";

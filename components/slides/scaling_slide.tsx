@@ -207,8 +207,8 @@ function CustomMultiLineChart({ data }: { data: any[] }) {
                 );
             })}
 
-            {/* X Ticks (Every 10 epochs) */}
-            {epochs.filter(e => e % 10 === 0).map(e => (
+            {/* X Ticks (Every 20 epochs to accommodate 150 epoch training) */}
+            {epochs.filter(e => e % 20 === 0).map(e => (
                 <g key={e}>
                     <line x1={getX(e)} y1={height - padding.bottom} x2={getX(e)} y2={height - padding.bottom + 6} stroke="currentColor" className="text-muted-foreground" />
                     <text x={getX(e)} y={height - padding.bottom + 20} textAnchor="middle" className="text-xs fill-muted-foreground">{e}</text>

@@ -85,28 +85,17 @@ const TemporalAnalysisSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
             </div>
 
             {/* Visual: Month Stacks (Unstacked) */}
-            <div className="flex-1 relative flex items-center justify-center -ml-20 scale-90 origin-right">
+            <div className="flex-1 h-full relative flex items-center justify-center -ml-20 scale-90 origin-right">
                 <MonthStacksDisplay
                     isStacked={false}
                     isScanning={false}
                     patchSize="patch"
                 />
-
-                {/* Annotations over the grid */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1, duration: 0.5 }}
-                    className="absolute top-1/4 right-1/4 bg-white/90 dark:bg-black/80 text-foreground px-3 py-1 rounded-full text-xs font-bold shadow-xl border border-border"
-                >
-                    Reviewing 12 Months...
-                </motion.div>
-
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.5, duration: 0.5 }}
-                    className="absolute bottom-1/4 left-1/3 bg-red-500 text-white px-2 py-0.5 rounded text-[10px] font-bold shadow-lg rotate-12"
+                    className="absolute bottom-1/2 left-1/5 bg-red-500 text-white px-2 py-0.5 rounded text-[10px] font-bold shadow-lg rotate-12"
                 >
                     Ignored (Cloudy)
                 </motion.div>

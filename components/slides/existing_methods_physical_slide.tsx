@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClipboardList, Plane, TrendingUp, AlertCircle, ScanLine, Trees, CheckCircle2, XCircle, DollarSign, Map, ZapOff, Minimize2, Layers } from "lucide-react";
+import { ClipboardList, Plane, DollarSign, Map, ZapOff, Minimize2, Clock } from "lucide-react";
 import { SlideHandle, SlideProps } from "../../types";
 
 const ExistingMethodsPhysicalSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
@@ -40,7 +40,7 @@ const ExistingMethodsPhysicalSlide = forwardRef<SlideHandle, SlideProps>((props,
         { title: "High Cost", icon: DollarSign, color: "text-red-500", bg: "bg-red-500/10", desc: "Expensive to survey repeatedly." },
         { title: "Low Coverage", icon: Map, color: "text-orange-500", bg: "bg-orange-500/10", desc: "Sparse measurements." },
         { title: "Speed", icon: ZapOff, color: "text-green-500", bg: "bg-green-500/10", desc: "SAR fails in dense forests." },
-        { title: "Integration", icon: Layers, color: "text-blue-500", bg: "bg-blue-500/10", desc: "Hard to combine radar/optical." }
+        { title: "Time consuming", icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10", desc: "Takes months/years to survey large areas." }
     ];
 
     return (
