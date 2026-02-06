@@ -141,9 +141,22 @@ const AIPipelineOverviewSlide = forwardRef<SlideHandle, SlideProps>((props, ref)
                         <div className="p-2 bg-primary/10 rounded-lg text-primary border border-primary/20">
                             <Layers className="w-6 h-6" />
                         </div>
-                        <div>
+                        <div className="flex-1">
                             <h3 className="font-bold text-xl leading-tight text-foreground">Project Architecture</h3>
                             <p className="text-xs text-muted-foreground font-mono">End-to-End Workflow</p>
+                        </div>
+                    </div>
+
+                    {/* Adaptive Cropping Connection Callout */}
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 mx-2">
+                        <div className="flex items-start gap-2">
+                            <Scan className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                            <div>
+                                <h4 className="font-bold text-sm text-emerald-700 dark:text-emerald-400 mb-1">✓ The Solution: Pixel-Accurate Segmentation</h4>
+                                <p className="text-xs text-foreground/80 leading-relaxed">
+                                    Our forest detection model achieves what adaptive cropping <strong className="text-red-600 dark:text-red-400">couldn't</strong>: separating forests from non-forests. Unlike block-based partitioning, segmentation follows <strong className="text-emerald-600 dark:text-emerald-300">exact forest boundaries</strong> at pixel-level accuracy—no wasted processing, no missed details.
+                                </p>
+                            </div>
                         </div>
                     </div>
 

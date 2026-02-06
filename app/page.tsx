@@ -26,6 +26,7 @@ import ScalingSlide from "../components/slides/scaling_slide";
 import TemporalAnalysisSlide from "../components/slides/temporal_analysis_slide";
 import ModelDesignSlide from "../components/slides/model_design_slide";
 import ModelArchitectureSlide from "../components/slides/model_architecture_slide";
+import OurModelPerformanceSlide from "../components/slides/our_model_performance_slide";
 import PaperAcceptanceSlide from "../components/slides/paper_acceptance_slide";
 import AIPipelineOverviewSlide from "../components/slides/ai_pipeline_overview_slide";
 import AIPipelineVideoSlide from "../components/slides/ai_pipeline_video_slide";
@@ -48,7 +49,7 @@ const IntroSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
 
   return (
     <div className="text-center">
-      <div className="inline-flex items-center justify-center rounded-full glass-panel border border-primary/30 mb-6 p-2 px-4 bg-primary/10">
+      <div className="inline-flex mt-10 items-center justify-center rounded-full glass-panel border border-primary/30 mb-6 p-2 px-4 bg-primary/10">
         <TreePine className="w-6 h-6 text-primary mr-2" />
         <span className="text-primary-foreground font-mono tracking-widest uppercase text-sm">Group 1</span>
       </div>
@@ -98,12 +99,13 @@ const SLIDE_METADATA = [
   { id: 20, title: "Design: Temporal", keywords: ["temporal", "noise", "transformer", "attention"], component: TemporalAnalysisSlide },
   { id: 21, title: "Design: Diminishing Returns", keywords: ["model", "size", "cost", "plateau"], component: ModelDesignSlide },
   { id: 22, title: "Design: Architecture", keywords: ["architecture", "unet", "transformer", "sweet spot"], component: ModelArchitectureSlide },
-  { id: 23, title: "Result: Paper Acceptance", keywords: ["paper", "publication", "hong kong", "icasis"], component: PaperAcceptanceSlide },
+  { id: 23, title: "Result: Our Solution", keywords: ["performance", "33m", "rmse", "efficient", "result"], component: OurModelPerformanceSlide },
+  { id: 24, title: "Result: Paper Acceptance", keywords: ["paper", "publication", "hong kong", "icasis"], component: PaperAcceptanceSlide },
 
   // AI Pipeline Section
-  { id: 24, title: "Section: AI Pipeline", keywords: ["section", "pipeline"], component: SectionPipeline },
-  { id: 25, title: "Pipeline: Overview", keywords: ["pipeline", "process", "overview"], component: AIPipelineOverviewSlide },
-  { id: 26, title: "Pipeline: Demo", keywords: ["video", "demo", "pipeline"], component: AIPipelineVideoSlide },
+  { id: 25, title: "Section: AI Pipeline", keywords: ["section", "pipeline"], component: SectionPipeline },
+  { id: 26, title: "Pipeline: Overview", keywords: ["pipeline", "process", "overview"], component: AIPipelineOverviewSlide },
+  { id: 27, title: "Pipeline: Demo", keywords: ["video", "demo", "pipeline"], component: AIPipelineVideoSlide },
 
   //Limitation
   //Techinical definitions

@@ -14,8 +14,8 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
             {/* Left Column: Text Content */}
             <div className="flex-1 flex flex-col justify-center space-y-6">
                 <div>
-                    <h2 className="text-4xl font-bold mb-2 text-foreground">Adaptive Cropping?</h2>
-                    <h3 className="text-xl text-primary font-mono">Can we exclude the noise intelligently?</h3>
+                    <h2 className="text-4xl font-bold mb-2 text-foreground">Can We Use Adaptive Cropping?</h2>
+                    <h3 className="text-xl text-primary font-mono">Smart block-based region separation</h3>
                 </div>
 
                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
@@ -24,48 +24,48 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                         <span className="font-bold text-red-700 dark:text-red-400">Short Answer: No</span>
                     </div>
                     <p className="text-sm text-foreground/80">
-                        Land shapes are complex. Box cropping guarantees including noise or excluding data.
+                        Land shapes are too complex and irregular. Block-based cropping guarantees either including noise or excluding important forest data.
                     </p>
                 </div>
 
                 <div className="space-y-4">
                     <h4 className="font-bold text-lg text-foreground flex items-center gap-2">
-                        <Crop className="w-5 h-5 text-primary" />
-                        Methodology Explored
+                        <Crop className="w-5 h-5 text-muted-foreground" />
+                        The Concept (from Underwater Imaging)
                     </h4>
 
-                    <ul className="space-y-3 relative border-l-2 border-primary/20 ml-2 pl-6">
+                    <ul className="space-y-3 relative border-l-2 border-muted/20 ml-2 pl-6">
                         <li className="relative">
-                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-primary" />
+                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
                             <h5 className="font-bold text-sm">1. Saliency Map Generation</h5>
-                            <p className="text-xs text-muted-foreground">Identifies Regions of Interest (ROI) based on visual importance, variance, and depth.</p>
+                            <p className="text-xs text-muted-foreground">Identifies important regions based on visual importance, variance, and depth information.</p>
                         </li>
                         <li className="relative">
-                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-primary" />
-                            <h5 className="font-bold text-sm">2. Multi-Level Partitioning</h5>
+                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
+                            <h5 className="font-bold text-sm">2. Block-Based Partitioning</h5>
                             <p className="text-xs text-muted-foreground">
-                                <span className="font-semibold text-primary/80">High-Saliency:</span> Finer blocks for details.<br />
-                                <span className="font-semibold text-primary/80">Low-Saliency:</span> Larger blocks for background.
+                                <span className="font-semibold">High-importance:</span> Split into smaller blocks.<br />
+                                <span className="font-semibold">Low-importance:</span> Keep as larger blocks.
                             </p>
                         </li>
                         <li className="relative">
-                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-primary" />
+                            <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
                             <h5 className="font-bold text-sm">3. Energy-Based Sampling</h5>
-                            <p className="text-xs text-muted-foreground">High energy blocks get higher sampling rates; low energy blocks get lower.</p>
+                            <p className="text-xs text-muted-foreground">High-energy blocks get more processing; low-energy blocks get less.</p>
                         </li>
                     </ul>
                 </div>
 
-                <div className="bg-surface border border-border/50 rounded-xl p-4">
+                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-yellow-500" />
-                        <span className="font-bold text-sm">Benefits</span>
+                        <XCircle className="w-4 h-4 text-red-500" />
+                        <span className="font-bold text-sm text-red-700 dark:text-red-400">Why This Fails for Biomass</span>
                     </div>
-                    <ul className="grid grid-cols-2 gap-2 text-xs text-foreground/80">
-                        <li>• Avoids over-sampling empty water</li>
-                        <li>• Higher PSNR & SSIM</li>
-                        <li>• Prevents blocking artifacts</li>
-                        <li>• Optimizes bandwidth</li>
+                    <ul className="space-y-1 text-xs text-foreground/80">
+                        <li>• Forest boundaries are <strong>irregular and complex</strong>—not block-aligned</li>
+                        <li>• Fixed block sizes can't follow natural forest edges</li>
+                        <li>• Either wastes processing on empty areas OR misses forest patches</li>
+                        <li>• Creates blocky artifacts that lose critical details</li>
                     </ul>
                 </div>
 
@@ -73,10 +73,10 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                     href="https://www.sciencedirect.com/science/article/pii/S2590123025043245"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-2 text-xs text-primary hover:underline mt-2"
+                    className="flex items-center gap-2 text-md text-blue-500 hover:text-primary hover:underline mt-2"
                 >
                     <ExternalLink className="w-3 h-3" />
-                    Reference: Saliency-driven adaptive block partitioning...
+                    Concept from: Saliency-driven adaptive block partitioning (underwater imaging)
                 </a>
             </div>
 
