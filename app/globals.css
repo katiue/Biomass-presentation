@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-highlight: var(--surface-highlight);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-muted: var(--primary-muted);
+
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-warning: var(--warning);
+  --color-muted: var(--muted);
+}
+
+:root {
+  /* Base Colors - Light Mode Default */
+  --background: #f9fafb;
+  /* gray-50 */
+  --foreground: #111827;
+  /* gray-900 */
+
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-highlight: rgba(255, 255, 255, 1);
+
+  --muted: #4b5563;
+  /* gray-600 */
+
+  /* Brand Colors */
+  --primary: #10b981;
+  /* emerald-500 */
+  --primary-foreground: #047857;
+  /* emerald-700 */
+  --primary-muted: #d1fae5;
+  /* emerald-100 */
+
+  --secondary: #3b82f6;
+  /* blue-500 */
+  --accent: #a855f7;
+  /* purple-500 */
+  --warning: #f59e0b;
+  /* amber-500 */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Utility to ensure glass panels work consistently */
+.glass-panel {
+  @apply bg-surface backdrop-blur-md border border-gray-200 shadow-sm;
+}
