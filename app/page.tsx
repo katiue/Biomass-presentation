@@ -12,6 +12,9 @@ import AgendaSlide from "../components/slides/agenda_slide";
 import SectionProblemStatement from "../components/slides/section_problem_statement";
 import SectionDataset from "../components/slides/section_dataset";
 import SectionExperiments from "../components/slides/section_experiments";
+import SectionOldApproach from "../components/slides/section_old_approach";
+import SectionObservation from "../components/slides/section_observation";
+import SectionFinalDesign from "../components/slides/section_final_design";
 import SectionPipeline from "../components/slides/section_pipeline";
 import InputDataSlide from "../components/slides/input_data_slide";
 import DatasetOverviewSlide from "../components/slides/dataset_overview_slide";
@@ -30,6 +33,11 @@ import OurModelPerformanceSlide from "../components/slides/our_model_performance
 import PaperAcceptanceSlide from "../components/slides/paper_acceptance_slide";
 import AIPipelineOverviewSlide from "../components/slides/ai_pipeline_overview_slide";
 import AIPipelineVideoSlide from "../components/slides/ai_pipeline_video_slide";
+import LimitationsSlide from "../components/slides/limitations_slide";
+import FutureWorkSlide from "../components/slides/future_work_slide";
+import SectionLimitations from "../components/slides/section_limitations";
+import SectionConclusion from "../components/slides/section_conclusion";
+import ConclusionSlide from "../components/slides/conclusion_slide";
 
 // Problem Statement Slides
 import CarbonCreditSlide from "../components/slides/carbon_credit_slide";
@@ -86,29 +94,43 @@ const SLIDE_METADATA = [
   { id: 9, title: "Dataset Overview", keywords: ["dataset", "scope", "finland", "biomassters"], component: DatasetOverviewSlide },
   { id: 10, title: "Data Collection: Input", keywords: ["sentinel", "radar", "optical", "s1", "s2"], component: DataCollectionInputSlide },
   { id: 11, title: "Data Collection: Truth", keywords: ["lidar", "ground truth", "agb", "pipeline"], component: DataCollectionGroundTruthSlide },
+  { id: 12, title: "Input Structure", keywords: ["input", "tensor", "layers", "time series"], component: InputDataSlide },
 
   // Experiments Section
-  { id: 12, title: "Section: Experiments & Results", keywords: ["section", "experiments"], component: SectionExperiments },
-  { id: 13, title: "Input Structure", keywords: ["input", "tensor", "layers", "time series"], component: InputDataSlide },
-  { id: 14, title: "Stage 1: Temporal", keywords: ["stage 1", "pixel", "inference", "temporal", "1d cnn"], component: Slide2 },
-  { id: 15, title: "Stage 2: Spatial", keywords: ["stage 2", "spatial", "refinement", "context"], component: Slide3 },
-  { id: 16, title: "Design: Configuration", keywords: ["config", "patch", "size", "64x64"], component: ConfigurationChoiceSlide },
-  { id: 17, title: "Design: Epochs", keywords: ["epochs", "training", "loss", "convergence"], component: EpochStopChoiceSlide },
-  { id: 18, title: "Design: Adaptive Cropping", keywords: ["cropping", "adaptive", "saliency"], component: AdaptiveCroppingSlide },
-  { id: 19, title: "Design: Scaling", keywords: ["scaling", "1M", "128x128", "size"], component: ScalingSlide },
-  { id: 20, title: "Design: Temporal", keywords: ["temporal", "noise", "transformer", "attention"], component: TemporalAnalysisSlide },
-  { id: 21, title: "Design: Diminishing Returns", keywords: ["model", "size", "cost", "plateau"], component: ModelDesignSlide },
-  { id: 22, title: "Design: Architecture", keywords: ["architecture", "unet", "transformer", "sweet spot"], component: ModelArchitectureSlide },
-  { id: 23, title: "Result: Our Solution", keywords: ["performance", "33m", "rmse", "efficient", "result"], component: OurModelPerformanceSlide },
-  { id: 24, title: "Result: Paper Acceptance", keywords: ["paper", "publication", "hong kong", "icasis"], component: PaperAcceptanceSlide },
+  //3.1 Old approach
+  { id: 13, title: "Section: Experiments & Results", keywords: ["section", "experiments"], component: SectionExperiments },
+  { id: 14, title: "Old Approach", keywords: ["old", "approach", "testing"], component: SectionOldApproach },
+  { id: 15, title: "Stage 1: Temporal", keywords: ["stage 1", "pixel", "inference", "temporal", "1d cnn"], component: Slide2 },
+  { id: 16, title: "Stage 2: Spatial", keywords: ["stage 2", "spatial", "refinement", "context"], component: Slide3 },
+
+  //3.2 Observation
+  { id: 17, title: "Observations", keywords: ["observation", "findings"], component: SectionObservation },
+  { id: 18, title: "Design: Configuration", keywords: ["config", "patch", "size", "64x64"], component: ConfigurationChoiceSlide },
+  { id: 19, title: "Design: Epochs", keywords: ["epochs", "training", "loss", "convergence"], component: EpochStopChoiceSlide },
+  { id: 20, title: "Design: Adaptive Cropping", keywords: ["cropping", "adaptive", "saliency"], component: AdaptiveCroppingSlide },
+  { id: 21, title: "Design: Scaling", keywords: ["scaling", "1M", "128x128", "size"], component: ScalingSlide },
+  { id: 22, title: "Design: Temporal", keywords: ["temporal", "noise", "transformer", "attention"], component: TemporalAnalysisSlide },
+  { id: 23, title: "Design: Diminishing Returns", keywords: ["model", "size", "cost", "plateau"], component: ModelDesignSlide },
+
+  //3.3 Final design choice
+  { id: 24, title: "Final Design Choice", keywords: ["final", "design", "choice"], component: SectionFinalDesign },
+  { id: 25, title: "Design: Architecture", keywords: ["architecture", "unet", "transformer", "sweet spot"], component: ModelArchitectureSlide },
+  { id: 26, title: "Result: Our Solution", keywords: ["performance", "33m", "rmse", "efficient", "result"], component: OurModelPerformanceSlide },
+  { id: 27, title: "Result: Paper Acceptance", keywords: ["paper", "publication", "hong kong", "icasis"], component: PaperAcceptanceSlide },
 
   // AI Pipeline Section
-  { id: 25, title: "Section: AI Pipeline", keywords: ["section", "pipeline"], component: SectionPipeline },
-  { id: 26, title: "Pipeline: Overview", keywords: ["pipeline", "process", "overview"], component: AIPipelineOverviewSlide },
-  { id: 27, title: "Pipeline: Demo", keywords: ["video", "demo", "pipeline"], component: AIPipelineVideoSlide },
+  { id: 28, title: "Section: AI Pipeline", keywords: ["section", "pipeline"], component: SectionPipeline },
+  { id: 29, title: "Pipeline: Overview", keywords: ["pipeline", "process", "overview"], component: AIPipelineOverviewSlide },
+  { id: 30, title: "Pipeline: Demo", keywords: ["video", "demo", "pipeline"], component: AIPipelineVideoSlide },
 
-  //Limitation
-  //Techinical definitions
+  //Limitation & Future work
+  { id: 31, title: "Section: Limitations & Future Work", keywords: ["section", "limitations"], component: SectionLimitations },
+  { id: 32, title: "Limitations", keywords: ["limitations", "data", "hardware"], component: LimitationsSlide },
+  { id: 33, title: "Future Work", keywords: ["future", "work", "scaling", "transformer"], component: FutureWorkSlide },
+
+  // Conclusion
+  { id: 34, title: "Section: Conclusion", keywords: ["section", "conclusion"], component: SectionConclusion },
+  { id: 35, title: "Conclusion", keywords: ["conclusion", "summary", "end"], component: ConclusionSlide },
 ];
 
 

@@ -1,7 +1,7 @@
 
 import React, { forwardRef, useImperativeHandle } from "react";
 import { motion } from "framer-motion";
-import { AlertCircle, Database, TestTube, Waypoints, ArrowRight } from "lucide-react";
+import { AlertCircle, Database, TestTube, Waypoints, ArrowRight, Milestone, Flag } from "lucide-react";
 import { SlideHandle, SlideProps } from "../../types";
 
 const AgendaSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
@@ -48,6 +48,24 @@ const AgendaSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
             color: "text-green-500",
             bg: "bg-green-500/10",
             border: "border-green-500/20"
+        },
+        {
+            id: 5,
+            title: "Limitations & Future Work",
+            description: "Addressing constraints and defining the path forward.",
+            icon: <Milestone size={32} />,
+            color: "text-rose-500",
+            bg: "bg-rose-500/10",
+            border: "border-rose-500/20"
+        },
+        {
+            id: 6,
+            title: "Conclusion",
+            description: "Summary of key findings and final thoughts.",
+            icon: <Flag size={32} />,
+            color: "text-teal-500",
+            bg: "bg-teal-500/10",
+            border: "border-teal-500/20"
         }
     ];
 
@@ -63,7 +81,7 @@ const AgendaSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -20 }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-16 z-10"
+                className="text-center mb-6 z-10"
             >
                 <div className="inline-block px-4 py-1.5 rounded-full bg-surface border border-border text-muted text-sm font-medium mb-4">
                     Overview
@@ -73,7 +91,7 @@ const AgendaSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
                 </h1>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full z-10">
                 {agendaItems.map((item, index) => (
                     <motion.div
                         key={item.id}
@@ -82,20 +100,22 @@ const AgendaSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
                         transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
                         className={`group relative p-6 rounded-2xl bg-surface/50 backdrop-blur-md border ${item.border} hover:bg-surface hover:shadow-lg transition-all duration-300 cursor-default`}
                     >
-                        <div className="flex items-start gap-4">
+                        <div className="flex items-start gap-4 h-full">
                             <div className={`p-4 rounded-xl ${item.bg} ${item.color} group-hover:scale-110 transition-transform duration-300`}>
                                 {item.icon}
                             </div>
-                            <div className="flex-1">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                        {item.id}. {item.title}
-                                    </h3>
-                                    <ArrowRight className="w-5 h-5 text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                            <div className="flex-1 flex flex-col justify-between h-full">
+                                <div>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                                            {item.id}. {item.title}
+                                        </h3>
+                                        <ArrowRight className="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                                    </div>
+                                    <p className="text-muted text-sm leading-relaxed">
+                                        {item.description}
+                                    </p>
                                 </div>
-                                <p className="text-muted text-lg leading-relaxed">
-                                    {item.description}
-                                </p>
                             </div>
                         </div>
                     </motion.div>

@@ -65,7 +65,7 @@ const TemporalAnalysisSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                             <BrainCircuit className="w-6 h-6 text-purple-600" />
                         </div>
                         <div>
-                            <h4 className="font-bold text-lg mb-1 text-purple-700 dark:text-purple-300">Attention Mechanism</h4>
+                            <h4 className="font-bold text-lg mb-1 text-purple-500">Attention Mechanism</h4>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                                 We moved from simple CNNs to <strong>Transformers</strong>. The model learns to "attend" to clear months and ignore noisy ones automatically.
                             </p>

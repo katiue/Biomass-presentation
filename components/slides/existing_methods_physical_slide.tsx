@@ -163,7 +163,7 @@ const ExistingMethodsPhysicalSlide = forwardRef<SlideHandle, SlideProps>((props,
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={step === 1 ? "view2" : "view1"}
-                                    src={step === 1 ? "/introduction/human_measure_2.png" : "/introduction/human_measure_1.webp"}
+                                    src={step === 1 ? "/introduction/human_measure_1.webp" : "/introduction/human_measure_2.png"}
                                     alt="Human Measurement"
                                     className="w-full h-full object-cover absolute inset-0"
                                     initial={{ opacity: 0 }}
@@ -171,7 +171,7 @@ const ExistingMethodsPhysicalSlide = forwardRef<SlideHandle, SlideProps>((props,
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.3 }}
                                 />
-                                {step === 0 && (
+                                {step === 1 && (
                                     <span className="absolute top-2 left-2 text-white text-xl px-2 py-0.5 rounded-full backdrop-blur-sm z-10">
                                         No tree - No carbon credits
                                     </span>

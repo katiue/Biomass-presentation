@@ -15,7 +15,7 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
             <div className="flex-1 flex flex-col justify-center space-y-6">
                 <div>
                     <h2 className="text-4xl font-bold mb-2 text-foreground">Can We Use Adaptive Cropping?</h2>
-                    <h3 className="text-xl text-primary font-mono">Smart block-based region separation</h3>
+                    <h3 className="text-xl text-primary font-mono">Smartly splitting the image based on content</h3>
                 </div>
 
                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
@@ -24,7 +24,7 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                         <span className="font-bold text-red-700 dark:text-red-400">Short Answer: No</span>
                     </div>
                     <p className="text-sm text-foreground/80">
-                        Land shapes are too complex and irregular. Block-based cropping guarantees either including noise or excluding important forest data.
+                        Forest shapes are messy. Using squares means we either include empty space or cut off real trees.
                     </p>
                 </div>
 
@@ -37,21 +37,21 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                     <ul className="space-y-3 relative border-l-2 border-muted/20 ml-2 pl-6">
                         <li className="relative">
                             <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
-                            <h5 className="font-bold text-sm">1. Saliency Map Generation</h5>
-                            <p className="text-xs text-muted-foreground">Identifies important regions based on visual importance, variance, and depth information.</p>
+                            <h5 className="font-bold text-sm">1. Finding Key Areas</h5>
+                            <p className="text-xs text-muted-foreground">Finds where the important data is.</p>
                         </li>
                         <li className="relative">
                             <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
-                            <h5 className="font-bold text-sm">2. Block-Based Partitioning</h5>
+                            <h5 className="font-bold text-sm">2. Cutting into Squares</h5>
                             <p className="text-xs text-muted-foreground">
-                                <span className="font-semibold">High-importance:</span> Split into smaller blocks.<br />
-                                <span className="font-semibold">Low-importance:</span> Keep as larger blocks.
+                                <span className="font-semibold">Busy areas:</span> Cut into small squares.<br />
+                                <span className="font-semibold">Empty areas:</span> Keep as big squares.
                             </p>
                         </li>
                         <li className="relative">
                             <span className="absolute -left-[29px] top-1 w-3 h-3 rounded-full bg-muted-foreground" />
-                            <h5 className="font-bold text-sm">3. Energy-Based Sampling</h5>
-                            <p className="text-xs text-muted-foreground">High-energy blocks get more processing; low-energy blocks get less.</p>
+                            <h5 className="font-bold text-sm">3. Biomass-Based Focus</h5>
+                            <p className="text-xs text-muted-foreground">High-biomass areas get more attention; others get less.</p>
                         </li>
                     </ul>
                 </div>
@@ -62,10 +62,10 @@ const AdaptiveCroppingSlide = forwardRef<SlideHandle, SlideProps>((props, ref) =
                         <span className="font-bold text-sm text-red-700 dark:text-red-400">Why This Fails for Biomass</span>
                     </div>
                     <ul className="space-y-1 text-xs text-foreground/80">
-                        <li>• Forest boundaries are <strong>irregular and complex</strong>—not block-aligned</li>
-                        <li>• Fixed block sizes can't follow natural forest edges</li>
-                        <li>• Either wastes processing on empty areas OR misses forest patches</li>
-                        <li>• Creates blocky artifacts that lose critical details</li>
+                        <li>• Forest edges are curvy, not square</li>
+                        <li>• Squares can't fit nature's shapes</li>
+                        <li>• We waste computer power on empty dirt or miss real trees</li>
+                        <li>• The result looks blocky and misses details</li>
                     </ul>
                 </div>
 

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Layers, Cpu, ArrowRight, Box, Grid3x3 } from "lucide-react";
 import { SlideHandle } from "../../types";
 import MonthStacksDisplay from "../../components/MonthStacksDisplay";
+import ModelArchitectureTooltip from "../ModelArchitectureTooltip";
 
 const Stage2Inference = forwardRef<SlideHandle, { isActive: boolean }>(({ isActive }, ref) => {
     // Animation Steps:
@@ -168,7 +169,7 @@ const Stage2Inference = forwardRef<SlideHandle, { isActive: boolean }>(({ isActi
                         >
                             <ArrowRight className="w-6 h-6 text-muted" />
 
-                            <div className="relative group">
+                            <div className="relative group cursor-help">
                                 {/* Glow effect */}
                                 <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-full opacity-60 group-hover:opacity-100 transition-opacity" />
 
@@ -177,6 +178,13 @@ const Stage2Inference = forwardRef<SlideHandle, { isActive: boolean }>(({ isActi
                                     <Cpu className="w-12 h-12 text-accent mb-2" />
                                     <span className="text-[10px] font-bold text-muted">STAGE 2</span>
                                     <span className="text-[8px] text-muted font-mono">3D U-Net</span>
+                                </div>
+
+                                {/* Tooltip */}
+                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50 bg-white rounded-xl shadow-xl border border-gray-200 w-max">
+                                    <ModelArchitectureTooltip stage={2} />
+                                    {/* Arrow */}
+                                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-8 border-transparent border-t-white" />
                                 </div>
 
                                 {/* Processing particles */}

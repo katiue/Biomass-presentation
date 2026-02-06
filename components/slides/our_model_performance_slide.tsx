@@ -251,7 +251,7 @@ function TrainingCurveChart({ data }: { data: any[] }) {
 
     const width = 400;
     const height = 180;
-    const padding = { top: 20, right: 30, bottom: 30, left: 40 };
+    const padding = { top: 20, right: 30, bottom: 40, left: 40 };
     const graphWidth = width - padding.left - padding.right;
     const graphHeight = height - padding.top - padding.bottom;
 
@@ -259,9 +259,12 @@ function TrainingCurveChart({ data }: { data: any[] }) {
     const maxEpoch = Math.max(...epochs);
     const minEpoch = Math.min(...epochs);
 
-    const rmseValues = data.map(d => d.val_rmse);
-    const minY = Math.min(...rmseValues) * 0.95;
-    const maxY = Math.max(...rmseValues) * 1.05;
+    const valValues = data.map(d => d.val_rmse);
+    const trainValues = data.map(d => d.train_loss);
+
+    const allValues = [...valValues, ...trainValues];
+    const minY = Math.min(...allValues) * 0.95;
+    const maxY = Math.max(...allValues) * 1.05;
 
     const getX = (epoch: number) => padding.left + ((epoch - minEpoch) / (maxEpoch - minEpoch)) * graphWidth;
     const getY = (val: number) => padding.top + (graphHeight - ((val - minY) / (maxY - minY)) * graphHeight);
@@ -270,9 +273,15 @@ function TrainingCurveChart({ data }: { data: any[] }) {
     const sampleInterval = Math.max(1, Math.floor(data.length / 100));
     const sampledData = data.filter((_, i) => i % sampleInterval === 0 || i === data.length - 1);
 
-    const pathData = sampledData.reduce((path, d, i) => {
+    const valPathData = sampledData.reduce((path, d, i) => {
         const x = getX(d.epoch);
         const y = getY(d.val_rmse);
+        return path + (i === 0 ? `M ${x},${y}` : ` L ${x},${y}`);
+    }, "");
+
+    const trainPathData = sampledData.reduce((path, d, i) => {
+        const x = getX(d.epoch);
+        const y = getY(d.train_loss);
         return path + (i === 0 ? `M ${x},${y}` : ` L ${x},${y}`);
     }, "");
 
@@ -308,11 +317,31 @@ function TrainingCurveChart({ data }: { data: any[] }) {
 
             {/* Axis Labels */}
             <text x={width / 2} y={height - 5} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">Epoch</text>
-            <text x={12} y={height / 2} transform={`rotate(-90, 12, ${height / 2})`} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">RMSE</text>
+            <text x={12} y={height / 2} transform={`rotate(-90, 12, ${height / 2})`} textAnchor="middle" className="text-[9px] font-semibold fill-foreground">Loss / RMSE</text>
 
-            {/* Path */}
+            {/* Legend */}
+            <g transform={`translate(${width - 120}, ${padding.top})`}>
+                <rect x="0" y="0" width="10" height="2" fill="#10B981" />
+                <text x="14" y="3" className="text-[9px] fill-muted-foreground">Validation (RMSE)</text>
+
+                <rect x="0" y="12" width="10" height="2" fill="#3B82F6" />
+                <text x="14" y="15" className="text-[9px] fill-muted-foreground">Training (Loss)</text>
+            </g>
+
+            {/* Training Path */}
             <motion.path
-                d={pathData}
+                d={trainPathData}
+                fill="none"
+                stroke="#3B82F6"
+                strokeWidth="1.5"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 0.7 }}
+                transition={{ duration: 2, ease: "easeInOut" }}
+            />
+
+            {/* Validation Path */}
+            <motion.path
+                d={valPathData}
                 fill="none"
                 stroke="#10B981"
                 strokeWidth="2"
@@ -321,11 +350,11 @@ function TrainingCurveChart({ data }: { data: any[] }) {
                 transition={{ duration: 2, ease: "easeInOut" }}
             />
 
-            {/* Final point highlight */}
+            {/* Final point highlight - Validation */}
             <motion.circle
                 cx={getX(data[data.length - 1].epoch)}
                 cy={getY(data[data.length - 1].val_rmse)}
-                r="4"
+                r="3"
                 fill="#10B981"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
