@@ -14,8 +14,6 @@ const BiomassFocusSlide = forwardRef<SlideHandle, SlideProps>((props, ref) => {
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-center bg-background p-8 md:p-16 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/assets/forest_bg_faded.png')] opacity-5 bg-cover bg-center pointer-events-none" />
-
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.9 }}

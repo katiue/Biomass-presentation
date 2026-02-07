@@ -39,6 +39,13 @@ import SectionLimitations from "../components/slides/section_limitations";
 import SectionConclusion from "../components/slides/section_conclusion";
 import ConclusionSlide from "../components/slides/conclusion_slide";
 
+// Concept Explanation Slides
+import ConceptConvolutionSlide from "../components/slides/concept_convolution_slide";
+import ConceptCNNSlide from "../components/slides/concept_cnn_slide";
+import ConceptTransformerSlide from "../components/slides/concept_transformer_slide";
+import ConceptTransformerArchitectureSlide from "../components/slides/concept_transformer_architecture_slide";
+import ConceptRMSESlide from "../components/slides/concept_rmse_slide";
+
 // Problem Statement Slides
 import CarbonCreditSlide from "../components/slides/carbon_credit_slide";
 import ImportanceOfCalculationSlide from "../components/slides/importance_of_calculation_slide";
@@ -131,6 +138,13 @@ const SLIDE_METADATA = [
   // Conclusion
   { id: 34, title: "Section: Conclusion", keywords: ["section", "conclusion"], component: SectionConclusion },
   { id: 35, title: "Conclusion", keywords: ["conclusion", "summary", "end"], component: ConclusionSlide },
+
+  // Appendix: Concept Explanations
+  { id: 36, title: "Concept: Convolution", keywords: ["convolution", "filter", "kernel", "concept", "explanation"], component: ConceptConvolutionSlide },
+  { id: 37, title: "Concept: CNN", keywords: ["cnn", "convolutional neural network", "layers", "concept", "explanation"], component: ConceptCNNSlide },
+  { id: 38, title: "Concept: Transformer (What)", keywords: ["transformer", "attention", "self-attention", "concept", "explanation"], component: ConceptTransformerSlide },
+  { id: 39, title: "Concept: Transformer (How)", keywords: ["transformer", "architecture", "layer norm", "feed forward", "pooling", "how"], component: ConceptTransformerArchitectureSlide },
+  { id: 40, title: "Concept: RMSE", keywords: ["rmse", "root mean square error", "metric", "evaluation", "concept", "explanation"], component: ConceptRMSESlide },
 ];
 
 
